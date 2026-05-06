@@ -1,0 +1,36 @@
+using System;
+using System.Text;
+
+public class Program
+{
+    public static void Main()
+    {
+        Console.WriteLine(NormalizarTexto("Como é???????"));
+        Console.WriteLine(NormalizarTexto("Não!!!!!!!!"));
+        Console.WriteLine(NormalizarTexto("O que????!!!! Não acredito!!!"));
+    }
+
+    public static string NormalizarTexto(string texto)
+    {
+        if (string.IsNullOrEmpty(texto))
+            return texto;
+
+        StringBuilder resultado = new StringBuilder();
+
+        char ultimo = '\0';
+
+        foreach (char c in texto)
+        {
+            // Se for ! ou ?, evita repetição
+            if ((c == '!' || c == '?') && c == ultimo)
+            {
+                continue;
+            }
+
+            resultado.Append(c);
+            ultimo = c;
+        }
+
+        return resultado.ToString();
+    }
+}
