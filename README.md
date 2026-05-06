@@ -93,3 +93,8 @@ Console.WriteLine(EhPalindromo("Arara")); // true
 Console.WriteLine(EhPalindromo("Ovo")); // true
 Console.WriteLine(EhPalindromo("Roma me tem amor")); // true
 Console.WriteLine(EhPalindromo("Teste")); // false
+
+
+## 🧠 Explicação resumida
+
+A solução utiliza a técnica de dois ponteiros, comparando os caracteres do início e do fim da string após normalização, garantindo uma verificação eficiente sem uso de métodos prontos como Reverse().
