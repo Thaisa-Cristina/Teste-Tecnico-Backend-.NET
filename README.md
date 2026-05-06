@@ -1,100 +1,180 @@
-# 🧠 Teste Técnico - Backend .NET Júnior
+# 🧠 Teste Técnico - Back-end .NET Júnior (2026)
 
-## 📌 Questão 1 - Verificação de Palíndromo
+## 📌 Objetivo
 
-### 📖 Descrição do Problema
+Este repositório contém a resolução das questões propostas no teste técnico para a vaga de Desenvolvedor(a) Back-end .NET Júnior.
 
-Desenvolver um método que identifique se uma string é um palíndromo.
+O foco da solução foi demonstrar:
 
-Um palíndromo é uma palavra ou frase que pode ser lida da mesma forma de trás para frente, desconsiderando espaços, pontuação e diferenças entre letras maiúsculas e minúsculas.
-
-### ✔ Exemplos válidos:
-- Arara → true
-- Ovo → true
-- Roma me tem amor → true
-- O lobo ama o bolo → true
-
-### ❌ Exemplos inválidos:
-- Teste → false
+* Raciocínio lógico
+* Organização de código
+* Clareza na implementação
+* Aplicação de boas práticas
 
 ---
 
-## 🛠️ Abordagem Utilizada
+## 🛠️ Tecnologias Utilizadas
 
-A solução foi construída sem utilizar métodos prontos como `Reverse()`, conforme solicitado.
-
-O processo foi dividido em etapas:
-
-### 1. Normalização da String
-- Remoção de caracteres que não são letras ou números
-- Conversão de todos os caracteres para minúsculo
-
-Isso garante que frases com espaços e variações de escrita sejam tratadas corretamente.
+* C#
+* .NET
+* SQL Server (conceitual)
+* Git / GitHub
 
 ---
 
-### 2. Estrutura de Dados
-Foi utilizada uma lista de caracteres (`List<char>`) para armazenar os caracteres válidos da string.
-
-Essa abordagem evita o uso de concatenação de strings dentro de loops, o que pode impactar negativamente a performance.
+# 📚 Questões Resolvidas
 
 ---
 
-### 3. Verificação com Dois Ponteiros
+## 🔹 Questão 1 - Verificação de Palíndromo
 
-Foi utilizada a técnica de dois ponteiros:
+### ✔ Descrição
 
-- Um ponteiro inicia no começo da lista
-- Outro ponteiro inicia no final
+Identificar se uma string é um palíndromo, ignorando espaços, caracteres especiais e diferenças entre maiúsculas e minúsculas.
 
-Os caracteres são comparados enquanto os ponteiros avançam:
+### 🧠 Abordagem
 
-- Se todos os caracteres forem iguais → é palíndromo
-- Se houver diferença → não é palíndromo
+* Normalização da string (remoção de caracteres inválidos)
+* Conversão para minúsculo
+* Uso da técnica de dois ponteiros para comparação
+
+### 💻 Destaque técnico
+
+* Não foi utilizado o método `Reverse()`
+* Foco em performance e legibilidade
 
 ---
 
-## 💻 Implementação
+## 🔹 Questão 2 - Geração da Sequência de Fibonacci
 
-```csharp
-public static bool EhPalindromo(string texto)
-{
-    if (string.IsNullOrEmpty(texto))
-        return false;
+### ✔ Descrição
 
-    var caracteres = new List<char>();
+Gerar os X primeiros números da sequência de Fibonacci.
 
-    foreach (char c in texto)
-    {
-        if (char.IsLetterOrDigit(c))
-        {
-            caracteres.Add(char.ToLower(c));
-        }
-    }
+### 🧠 Abordagem
 
-    int inicio = 0;
-    int fim = caracteres.Count - 1;
+* Inicialização com os dois primeiros valores (0 e 1)
+* Uso de loop para calcular os próximos valores
 
-    while (inicio < fim)
-    {
-        if (caracteres[inicio] != caracteres[fim])
-            return false;
+### 💻 Destaque técnico
 
-        inicio++;
-        fim--;
-    }
+* Tratamento de casos de borda (0 e 1)
+* Estrutura simples e eficiente
 
-    return true;
-}
+---
 
+## 🔹 Questão 3 - Normalização de Texto com Pontuação
 
-🧪 Exemplos de Teste
-Console.WriteLine(EhPalindromo("Arara")); // true
-Console.WriteLine(EhPalindromo("Ovo")); // true
-Console.WriteLine(EhPalindromo("Roma me tem amor")); // true
-Console.WriteLine(EhPalindromo("Teste")); // false
+### ✔ Descrição
 
+Remover repetições consecutivas de sinais de exclamação (!) e interrogação (?) em uma string.
 
-## 🧠 Explicação resumida
+### 🧠 Abordagem
 
-A solução utiliza a técnica de dois ponteiros, comparando os caracteres do início e do fim da string após normalização, garantindo uma verificação eficiente sem uso de métodos prontos como Reverse().
+* Percorrer a string caractere por caractere
+* Comparar com o caractere anterior
+* Ignorar repetições
+
+### 💻 Destaque técnico
+
+* Uso de `StringBuilder` para melhor performance
+* Solução simples e eficiente
+
+---
+
+## 🔹 Questão 4 - Conceitos de Banco de Dados
+
+### ✔ Descrição
+
+Explicação dos conceitos de:
+
+* View
+* Table-valued Function
+* Stored Procedure
+* Trigger
+
+### 🧠 Abordagem
+
+* Explicação teórica
+* Exemplos práticos em SQL
+
+### 💻 Destaque técnico
+
+* Diferenciação clara entre cada conceito
+* Aplicação em cenários reais
+
+---
+
+## 🔹 Questão 5 - Procedure de Finalização de Orçamento
+
+### ✔ Descrição
+
+Criação de uma stored procedure para finalizar um orçamento.
+
+### 🧠 Regras implementadas
+
+* Verificação de existência do orçamento
+* Validação de status (Aberto)
+* Verificação de itens
+* Cálculo do valor total
+* Atualização de status e data
+
+### 💻 Destaque técnico
+
+* Uso de validações antes da atualização
+* Retorno de mensagens claras
+* Organização do fluxo de execução
+
+---
+
+## 🔹 Questão 6 - Endpoint de Cadastro de Orçamento (API .NET)
+
+### ✔ Descrição
+
+Criação de um endpoint para cadastro de orçamento com validações.
+
+### 🧠 Regras implementadas
+
+* Validação de clienteId e veiculoId
+* Validação dos itens
+* Cálculo do valor total
+* Retorno de erros claros
+
+### 💻 Destaque técnico
+
+* Uso de DTOs para organização
+* Validação completa de entrada
+* Estrutura de API REST
+
+---
+
+## ⚙️ Considerações Gerais
+
+As soluções foram desenvolvidas com foco em:
+
+* Código limpo e legível
+* Separação de responsabilidades
+* Facilidade de manutenção
+* Clareza na explicação
+
+Não foram utilizados frameworks ou estruturas complexas, priorizando a simplicidade e o entendimento das soluções.
+
+---
+
+## 🚀 Possíveis Melhorias
+
+* Implementação de testes unitários
+* Integração com banco de dados real
+* Uso de camadas (Service/Repository)
+* Tratamento global de exceções
+* Aplicação de padrões de projeto
+
+---
+
+## 📌 Conclusão
+
+Este teste foi desenvolvido com o objetivo de demonstrar não apenas conhecimento técnico, mas também organização, clareza e capacidade de resolução de problemas.
+
+As soluções apresentadas seguem boas práticas e podem ser evoluídas para cenários reais de produção.
+
+---
