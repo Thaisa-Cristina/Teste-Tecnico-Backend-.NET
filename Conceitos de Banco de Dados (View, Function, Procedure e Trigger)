@@ -1,0 +1,85 @@
+### View
+
+Uma View é uma consulta SQL armazenada que funciona como uma “tabela virtual”. Ela não armazena dados, apenas exibe o resultado de uma query.
+
+**Exemplo prático:**
+Criar uma view para listar apenas clientes ativos:
+
+```sql
+CREATE VIEW ClientesAtivos AS
+SELECT Nome, Email
+FROM Clientes
+WHERE Ativo = 1;
+```
+
+---
+
+### Table-valued Function
+
+Uma Table-valued Function é uma função que retorna uma tabela como resultado e pode receber parâmetros.
+
+**Exemplo prático:**
+Buscar pedidos de um cliente específico:
+
+```sql
+CREATE FUNCTION PedidosPorCliente (@ClienteId INT)
+RETURNS TABLE
+AS
+RETURN (
+    SELECT *
+    FROM Pedidos
+    WHERE ClienteId = @ClienteId
+);
+```
+
+---
+
+### Stored Procedure
+
+Uma Stored Procedure é um conjunto de comandos SQL armazenados no banco que pode executar operações como inserção, atualização e exclusão de dados.
+
+**Exemplo prático:**
+Inserir um novo cliente:
+
+```sql
+CREATE PROCEDURE InserirCliente
+    @Nome NVARCHAR(100),
+    @Email NVARCHAR(100)
+AS
+BEGIN
+    INSERT INTO Clientes (Nome, Email)
+    VALUES (@Nome, @Email);
+END;
+```
+
+---
+
+### Trigger
+
+Uma Trigger é um código executado automaticamente quando ocorre um evento em uma tabela, como INSERT, UPDATE ou DELETE.
+
+**Exemplo prático:**
+Registrar log ao inserir um cliente:
+
+```sql
+CREATE TRIGGER LogClienteInserido
+ON Clientes
+AFTER INSERT
+AS
+BEGIN
+    INSERT INTO Log (Mensagem)
+    SELECT 'Novo cliente inserido: ' + Nome
+    FROM inserted;
+END;
+```
+
+---
+
+### Diferenças principais
+
+* **View:** apenas consulta (SELECT), não recebe parâmetros
+* **Function:** retorna dados e pode receber parâmetros
+* **Stored Procedure:** executa ações (INSERT, UPDATE, DELETE)
+* **Trigger:** executa automaticamente em eventos do banco
+
+Cada um é utilizado conforme a necessidade: leitura de dados, lógica reutilizável, execução de operações ou automação de eventos.
