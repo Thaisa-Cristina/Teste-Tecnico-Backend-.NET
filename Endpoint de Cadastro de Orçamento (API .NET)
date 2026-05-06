@@ -1,0 +1,66 @@
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+[ApiController]
+[Route("api/orcamentos")]
+public class OrcamentoController : ControllerBase
+{
+    [HttpPost]
+    public IActionResult CriarOrcamento([FromBody] OrcamentoRequest request)
+    {
+        // Validações
+        if (request.ClienteId <= 0)
+            return BadRequest("clienteId é obrigatório");
+
+        if (request.VeiculoId <= 0)
+            return BadRequest("veiculoId é obrigatório");
+
+        if (request.Itens == null || !request.Itens.Any())
+            return BadRequest("O orçamento deve possuir pelo menos um item");
+
+        foreach (var item in request.Itens)
+        {
+            if (string.IsNullOrWhiteSpace(item.Descricao))
+                return BadRequest("Item com descrição inválida");
+
+            if (item.Quantidade <= 0)
+                return BadRequest("Quantidade deve ser maior que zero");
+
+            if (item.ValorUnitario <= 0)
+                return BadRequest("Valor unitário deve ser maior que zero");
+        }
+
+        // Cálculo do total
+        decimal valorTotal = request.Itens
+            .Sum(i => i.Quantidade * i.ValorUnitario);
+
+        // Simulação de retorno (sem banco)
+        var response = new
+        {
+            ClienteId = request.ClienteId,
+            VeiculoId = request.VeiculoId,
+            ValorTotal = valorTotal,
+            Status = "Aberto",
+            DataCriacao = DateTime.Now
+        };
+
+        return Ok(response);
+    }
+}
+
+// DTOs
+public class OrcamentoRequest
+{
+    public int ClienteId { get; set; }
+    public int VeiculoId { get; set; }
+    public List<ItemRequest> Itens { get; set; }
+}
+
+public class ItemRequest
+{
+    public string Descricao { get; set; }
+    public int Quantidade { get; set; }
+    public decimal ValorUnitario { get; set; }
+}
